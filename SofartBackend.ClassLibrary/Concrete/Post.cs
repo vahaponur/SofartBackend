@@ -19,7 +19,7 @@ namespace SofartBackend.Entities.Concrete
         [Required]
         public string Content { get; set; }
 
-        public HashSet<Creator> Creators { get; set; } = new HashSet<Creator>();
+        public List<Creator> Creators { get; set; } = new List<Creator>();
         public HashSet<Image> Images { get; set; } = new HashSet<Image>();
 
         [Required]

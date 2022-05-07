@@ -2,7 +2,7 @@
 using SofartBackend.Entities.Concrete;
 using SofartBackend.Entities.Concrete.SocialMedia;
 
-namespace SofartBackend.DataAccess.EfCore.Contracts
+namespace SofartBackend.DataAccess.EfCore.Concrete
 {
     public class SofartDbContext:DbContext
     {
