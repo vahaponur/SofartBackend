@@ -2,19 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace SofartBackend.DataAccess.EfCore.Contracts
 {
     public interface IRepository<T> where T:class,IEntity
     {
-        void Add(T entity);
-        void AddAll(IEnumerable<T> entities);
-        void Delete(T entity);
-        void DeleteAll(IEnumerable<T> entities);
-        void Update(T entity);
-        T Get(Expression<Func<T, bool>> filter);
-        T GetById(int id);
-        ICollection<T> GetAll(Expression<Func<T, bool>>  filter=null);
+        Task Add(T entity);
+        Task AddAll(IEnumerable<T> entities);
+        Task Delete(T entity);
+        Task DeleteAll(IEnumerable<T> entities);
+        Task Update(T entity);
+        Task<T> Get(Expression<Func<T, bool>> filter);
+        Task<T> GetById(int id);
+        Task<ICollection<T>> GetAll(Expression<Func<T, bool>>  filter=null);
 
     }
 }

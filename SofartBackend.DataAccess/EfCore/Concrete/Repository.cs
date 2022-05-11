@@ -1,9 +1,11 @@
-﻿using SofartBackend.DataAccess.EfCore.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using SofartBackend.DataAccess.EfCore.Contracts;
 using SofartBackend.Entities.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace SofartBackend.DataAccess.EfCore.Concrete
 {
@@ -14,46 +16,58 @@ namespace SofartBackend.DataAccess.EfCore.Concrete
         {
             this.dbContext = dbContext;
         }
-        public void Add(T entity)
+        public async Task Add(T entity)
         {
 
             dbContext.Set<T>().Add(entity);
+            await dbContext.SaveChangesAsync();
+
         }
 
-        public void AddAll(IEnumerable<T> entities)
+        public async Task AddAll(IEnumerable<T> entities)
         {
             dbContext.Set<T>().AddRange(entities);
+            await dbContext.SaveChangesAsync();
+
         }
 
-        public void Delete(T entity)
+        public async Task Delete(T entity)
         {
             dbContext.Set<T>().Remove(entity);
+            await dbContext.SaveChangesAsync();
+
         }
 
-        public void DeleteAll(IEnumerable<T> entities)
+        public async Task DeleteAll(IEnumerable<T> entities)
         {
             dbContext.Set<T>().RemoveRange(entities);
+            await dbContext.SaveChangesAsync();
+
         }
 
-        public T Get(Expression<Func<T, bool>> filter)
+        public async Task<T> Get(Expression<Func<T, bool>> filter)
         {
-            return dbContext.Set<T>().FirstOrDefault(filter);
+
+            return await dbContext.Set<T>().FirstOrDefaultAsync(filter);
+     
         }
 
 
-        public ICollection<T> GetAll(Expression<Func<T, bool>> filter = null)
+        public async Task <ICollection<T>> GetAll(Expression<Func<T, bool>> filter = null)
         {
-            return dbContext.Set<T>().Where(filter).ToHashSet();
+           return await dbContext.Set<T>().Where(filter).ToListAsync();
+    
         }
 
-        public T GetById(int id)
+        public async Task <T>  GetById(int id)
         {
-            return dbContext.Set<T>().Find(id);
+            return await dbContext.Set<T>().FindAsync(id);
         }
 
-        public void Update(T entity)
+        public async Task Update(T entity)
         {
-            dbContext.Set<T>().Update(entity);
+             dbContext.Set<T>().Update(entity);
+            await dbContext.SaveChangesAsync();
         }
     }
 }
