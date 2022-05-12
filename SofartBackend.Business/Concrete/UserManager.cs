@@ -38,22 +38,24 @@ namespace SofartBackend.Business.Concrete
 
         public async Task<IResponse> DeleteAll(IEnumerable<User> entities)
         {
-            throw new NotImplementedException();
+            await _userRepository.DeleteAll(entities);
+            return new SuccessResponse("Users deleted");
         }
 
         public async Task<IDataResponse<ICollection<User>>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResponse<ICollection<User>>(await _userRepository.GetAll());
         }
 
         public async Task<IDataResponse<User>> GetById(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResponse<User>(await _userRepository.GetById(id));
         }
 
         public async Task<IResponse> Update(User entity)
         {
-            throw new NotImplementedException();
+            await _userRepository.Update(entity);
+            return new SuccessResponse();
         }
     }
 }
