@@ -8,10 +8,10 @@ namespace SofartBackend.Business.ResponseModels
 {
     public class SuccessResponse : Response
     {
-        public SuccessResponse(ResultStatus resultStatus, string message) : base(ResultStatus.SUCCESS, message)
+        public SuccessResponse( string message) : base(ResultStatus.SUCCESS, message)
         {
         }
-        public SuccessResponse(ResultStatus resultStatus):base(ResultStatus.SUCCESS)
+        public SuccessResponse():base(ResultStatus.SUCCESS)
         {
 
         }

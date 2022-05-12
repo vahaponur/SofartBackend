@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SofartBackend.Business.ResponseModels
 {
-    public abstract class DataResponse<T> : Response, IDataResponse<T> where T : class,IEntity
+    public abstract class DataResponse<T> : Response, IDataResponse<T> 
     {
         public T Data { get; set; }
 

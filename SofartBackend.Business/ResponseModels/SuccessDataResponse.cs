@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SofartBackend.Business.ResponseModels
 {
-    public class SuccessDataResponse<T> : DataResponse<T> where T : class, IEntity
+    public class SuccessDataResponse<T> : DataResponse<T> 
     {
         public SuccessDataResponse(T data, string message) : base(data, ResultStatus.SUCCESS, message)
         {

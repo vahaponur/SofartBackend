@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SofartBackend.Business.ResponseModels
 {
-    public interface IDataResponse<T>:IResponse where T : class,IEntity
+    public interface IDataResponse<T>:IResponse
     {
         T Data { get; set; }
     }
