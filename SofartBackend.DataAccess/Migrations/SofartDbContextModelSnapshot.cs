@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SofartBackend.DataAccess.EfCore.Contracts;
+using SofartBackend.DataAccess.EfCore.Concrete;
 
 namespace SofartBackend.DataAccess.Migrations
 {

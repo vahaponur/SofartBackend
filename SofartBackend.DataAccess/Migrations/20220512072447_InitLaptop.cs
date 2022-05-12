@@ -2,7 +2,7 @@
 
 namespace SofartBackend.DataAccess.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class InitLaptop : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -69,26 +69,6 @@ namespace SofartBackend.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SocialAccounts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SocialMediaTypeId = table.Column<int>(type: "int", nullable: true),
-                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SocialAccounts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SocialAccounts_SocialMediaTypes_SocialMediaTypeId",
-                        column: x => x.SocialMediaTypeId,
-                        principalTable: "SocialMediaTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -136,6 +116,33 @@ namespace SofartBackend.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SocialAccounts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    SocialMediaTypeId = table.Column<int>(type: "int", nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SocialAccounts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SocialAccounts_SocialMediaTypes_SocialMediaTypeId",
+                        column: x => x.SocialMediaTypeId,
+                        principalTable: "SocialMediaTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SocialAccounts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CreatorPost_PostsId",
                 table: "CreatorPost",
@@ -150,6 +157,11 @@ namespace SofartBackend.DataAccess.Migrations
                 name: "IX_SocialAccounts_SocialMediaTypeId",
                 table: "SocialAccounts",
                 column: "SocialMediaTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SocialAccounts_UserId",
+                table: "SocialAccounts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_ImageId",
@@ -169,10 +181,10 @@ namespace SofartBackend.DataAccess.Migrations
                 name: "SocialAccounts");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "SocialMediaTypes");
 
             migrationBuilder.DropTable(
-                name: "SocialMediaTypes");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Images");

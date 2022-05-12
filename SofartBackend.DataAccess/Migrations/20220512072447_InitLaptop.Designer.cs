@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SofartBackend.DataAccess.EfCore.Contracts;
+using SofartBackend.DataAccess.EfCore.Concrete;
 
 namespace SofartBackend.DataAccess.Migrations
 {
     [DbContext(typeof(SofartDbContext))]
-    [Migration("20220503174947_InitDb")]
-    partial class InitDb
+    [Migration("20220512072447_InitLaptop")]
+    partial class InitLaptop
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -110,12 +110,17 @@ namespace SofartBackend.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SocialMediaTypeId")
+                    b.Property<int>("SocialMediaTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SocialMediaTypeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("SocialAccounts");
                 });
@@ -217,7 +222,15 @@ namespace SofartBackend.DataAccess.Migrations
                 {
                     b.HasOne("SofartBackend.Entities.Concrete.SocialMedia.SocialMediaType", "SocialMediaType")
                         .WithMany()
-                        .HasForeignKey("SocialMediaTypeId");
+                        .HasForeignKey("SocialMediaTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SofartBackend.Entities.Concrete.User", null)
+                        .WithMany("SocialAccounts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("SocialMediaType");
                 });
@@ -234,6 +247,11 @@ namespace SofartBackend.DataAccess.Migrations
             modelBuilder.Entity("SofartBackend.Entities.Concrete.Post", b =>
                 {
                     b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("SofartBackend.Entities.Concrete.User", b =>
+                {
+                    b.Navigation("SocialAccounts");
                 });
 #pragma warning restore 612, 618
         }

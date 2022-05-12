@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SofartBackend.ClassLibrary\SofartBackend.Entities.csproj" />
+    <ProjectReference Include="..\SofartBackend.DataAccess\SofartBackend.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
